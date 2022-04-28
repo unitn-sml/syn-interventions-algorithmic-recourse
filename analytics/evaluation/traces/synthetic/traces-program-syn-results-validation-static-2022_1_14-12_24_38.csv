@@ -1,0 +1,384 @@
+id,program,arguments,rule
+0,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+0,CHANGE_EDUCATION,triennale,education_nessuno
+0,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+0,CHANGE_RELATION,divorziato/a,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND not 40 <= age < 50 AND country_italia
+0,CHANGE_INCOME,20000,not education_magistrale AND not job_ceo
+0,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND country_italia AND not sex_male
+0,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+1,CHANGE_EDUCATION,triennale,job_impiegato AND not education_diploma AND education_nessuno
+1,CHANGE_HOUSE,own,house_rent AND job_impiegato
+1,STOP,0,50000 <= income < 70000 AND not job_manager
+2,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+2,CHANGE_EDUCATION,triennale,education_nessuno
+2,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+2,CHANGE_HOUSE,own,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND not house_own
+2,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+2,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND country_italia AND not sex_male
+2,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+3,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+3,CHANGE_EDUCATION,triennale,education_nessuno
+3,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND relationship_vedovo/a AND not country_italia
+3,CHANGE_INCOME,20000,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND relationship_vedovo/a
+3,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+3,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+4,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+4,STOP,0,50000 <= income < 70000 AND not job_manager
+5,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+5,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+5,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND relationship_vedovo/a AND not country_italia
+5,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+6,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+6,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+6,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+6,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+7,CHANGE_EDUCATION,triennale,job_impiegato AND not education_diploma AND education_nessuno
+7,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+7,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+8,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+8,STOP,0,50000 <= income < 70000 AND not job_manager
+9,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+9,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+9,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND relationship_vedovo/a AND not country_italia
+9,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+9,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+10,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+10,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+10,STOP,0,50000 <= income < 70000 AND not job_manager
+11,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+11,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+11,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+11,CHANGE_HOUSE,own,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND not house_own
+11,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+11,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+11,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+12,CHANGE_HOUSE,own,not job_impiegato AND job_manager AND not house_own AND not education_diploma AND not education_nessuno
+12,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND job_manager AND not education_triennale AND relationship_single AND not sex_male
+12,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND not country_italia
+13,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+13,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+13,STOP,0,50000 <= income < 70000 AND not job_manager
+14,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+14,STOP,0,50000 <= income < 70000 AND not job_manager
+15,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+15,CHANGE_EDUCATION,triennale,education_nessuno
+15,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+15,CHANGE_HOUSE,own,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND not house_own
+15,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+15,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND country_italia AND not sex_male
+15,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+17,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+17,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+17,STOP,0,50000 <= income < 70000 AND not job_manager
+18,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+18,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+18,STOP,0,not house_rent AND 50000 <= income < 70000 AND job_impiegato
+19,CHANGE_EDUCATION,triennale,not job_impiegato AND job_manager AND not house_own AND not education_diploma AND education_nessuno
+19,CHANGE_HOUSE,own,house_rent AND not job_impiegato AND not job_ceo AND not 40 <= age < 50 AND 70000 <= income < 100000 AND not relationship_sposato/a AND not 30000 <= credit < 50000
+19,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND job_manager AND education_triennale AND country_europa
+19,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND not country_italia
+20,CHANGE_EDUCATION,triennale,job_impiegato AND not education_diploma AND education_nessuno
+20,CHANGE_HOUSE,own,house_rent AND job_impiegato
+20,STOP,0,50000 <= income < 70000 AND not job_manager
+21,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+21,CHANGE_EDUCATION,triennale,education_nessuno
+21,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+21,CHANGE_RELATION,divorziato/a,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND 40 <= age < 50 AND sex_male AND relationship_divorziato/a AND country_italia AND 30000 <= credit < 50000
+21,CHANGE_INCOME,20000,not education_magistrale AND not job_ceo
+21,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND country_italia AND sex_male AND not 10000 <= credit < 30000 AND not relationship_sposato/a
+21,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+22,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+22,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND relationship_vedovo/a AND not 30 <= age < 40
+22,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+23,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+23,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+23,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+23,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+24,CHANGE_HOUSE,own,not job_impiegato AND job_manager AND not house_own AND not education_diploma AND not education_nessuno
+24,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND job_manager AND not education_triennale AND not relationship_single
+24,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND not country_italia
+25,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+25,CHANGE_EDUCATION,triennale,education_nessuno
+25,CHANGE_HOUSE,own,house_rent AND job_impiegato
+25,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+25,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+26,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+26,STOP,0,50000 <= income < 70000 AND not job_manager
+27,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+27,STOP,0,50000 <= income < 70000 AND not job_manager
+28,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+28,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+28,STOP,0,50000 <= income < 70000 AND not job_manager
+29,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+29,STOP,0,not education_nessuno AND not education_diploma AND not house_rent AND 50000 <= income < 70000 AND job_impiegato
+30,CHANGE_EDUCATION,triennale,not job_impiegato AND job_manager AND not house_own AND education_diploma
+30,STOP,0,house_rent AND not job_impiegato AND not job_ceo AND not 40 <= age < 50 AND 70000 <= income < 100000 AND relationship_sposato/a AND not country_italia AND not 30000 <= credit < 50000
+31,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+31,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+31,CHANGE_HOUSE,own,house_rent AND job_impiegato
+31,STOP,0,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND not job_manager
+32,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+32,STOP,0,50000 <= income < 70000 AND not job_manager
+33,CHANGE_HOUSE,own,not job_impiegato AND job_manager AND not house_own AND not education_diploma AND not education_nessuno
+33,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND job_manager AND not education_triennale AND not relationship_single
+33,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND country_italia AND not relationship_divorziato/a
+34,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+34,STOP,0,50000 <= income < 70000 AND not job_manager
+35,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+35,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+35,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+36,CHANGE_EDUCATION,triennale,job_impiegato AND education_diploma
+36,CHANGE_HOUSE,own,house_rent AND job_impiegato
+36,STOP,0,50000 <= income < 70000 AND not job_manager
+37,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+37,CHANGE_EDUCATION,triennale,education_nessuno
+37,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+37,CHANGE_RELATION,divorziato/a,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND not 40 <= age < 50 AND not country_italia AND not 30000 <= credit < 50000 AND not 1000 <= credit < 10000 AND sex_male
+37,CHANGE_INCOME,20000,not education_magistrale AND not job_ceo
+37,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+37,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+38,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+38,STOP,0,50000 <= income < 70000 AND not job_manager
+39,CHANGE_INCOME,20000,not job_impiegato AND job_manager AND house_own AND not education_diploma AND not education_nessuno
+39,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND not country_italia
+40,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+40,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+40,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+40,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+41,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+41,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+41,CHANGE_RELATION,divorziato/a,30000 <= income < 50000 AND education_magistrale AND not relationship_single AND not relationship_vedovo/a AND country_extra-europa AND not 30 <= age < 40
+41,CHANGE_EDUCATION,phd,education_magistrale AND not 10000 <= credit < 30000 AND relationship_divorziato/a
+41,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+41,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+42,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+42,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+42,STOP,0,50000 <= income < 70000 AND not job_manager
+43,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+43,CHANGE_EDUCATION,triennale,education_nessuno
+43,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+43,CHANGE_HOUSE,own,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND not house_own
+43,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+43,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+43,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+44,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+44,STOP,0,50000 <= income < 70000 AND not job_manager
+45,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+45,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+45,CHANGE_RELATION,divorziato/a,30000 <= income < 50000 AND education_magistrale AND not relationship_single AND not relationship_vedovo/a AND country_extra-europa AND 30 <= age < 40 AND not sex_male
+45,CHANGE_INCOME,20000,education_magistrale AND 10000 <= credit < 30000 AND not country_europa
+45,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+46,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+46,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND relationship_vedovo/a AND not 30 <= age < 40
+46,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+47,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+47,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+47,CHANGE_HOUSE,own,house_rent AND job_impiegato
+47,STOP,0,50000 <= income < 70000 AND not job_manager
+48,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+48,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+48,STOP,0,50000 <= income < 70000 AND not job_manager
+49,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+49,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+49,CHANGE_HOUSE,own,house_rent AND job_impiegato
+49,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+49,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+50,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+50,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+50,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+51,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+51,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+51,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+52,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+52,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+52,STOP,0,50000 <= income < 70000 AND not job_manager
+53,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+53,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+53,STOP,0,50000 <= income < 70000 AND not job_manager
+54,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+54,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+54,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+54,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+55,CHANGE_EDUCATION,triennale,not job_impiegato AND job_manager AND not house_own AND education_diploma
+55,CHANGE_HOUSE,own,house_rent AND not job_impiegato AND not job_ceo AND not 40 <= age < 50 AND not 70000 <= income < 100000
+55,CHANGE_INCOME,20000,50000 <= income < 70000 AND job_manager AND not country_extra-europa
+55,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND country_italia AND relationship_divorziato/a AND 50 <= age < 60
+56,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+56,STOP,0,not education_nessuno AND not education_diploma AND not house_rent AND 50000 <= income < 70000 AND job_impiegato
+57,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+57,CHANGE_EDUCATION,triennale,education_nessuno
+57,CHANGE_HOUSE,own,house_rent AND job_impiegato
+57,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+57,CHANGE_RELATION,divorziato/a,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND not 40 <= age < 50 AND not country_italia AND 30000 <= credit < 50000 AND not relationship_divorziato/a AND 50 <= age < 60
+57,CHANGE_INCOME,20000,not education_magistrale AND not job_ceo
+57,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+57,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+58,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+58,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+58,STOP,0,50000 <= income < 70000 AND not job_manager
+59,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+59,STOP,0,50000 <= income < 70000 AND not job_manager
+60,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+60,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+60,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+60,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+61,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+61,CHANGE_EDUCATION,triennale,education_nessuno
+61,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+61,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+62,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+62,CHANGE_EDUCATION,triennale,education_nessuno
+62,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+62,CHANGE_INCOME,20000,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND not 40 <= age < 50 AND not country_italia AND 30000 <= credit < 50000 AND relationship_divorziato/a
+62,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+62,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+63,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+63,STOP,0,not education_nessuno AND not education_diploma AND not house_rent AND 50000 <= income < 70000 AND job_impiegato
+64,CHANGE_EDUCATION,triennale,not job_impiegato AND job_manager AND not house_own AND education_diploma
+64,CHANGE_HOUSE,own,house_rent AND not job_impiegato AND not job_ceo AND not 40 <= age < 50 AND 70000 <= income < 100000 AND not relationship_sposato/a AND not 30000 <= credit < 50000
+64,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND job_manager AND education_triennale AND country_europa
+64,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND 1000 <= credit < 10000 AND not relationship_single AND country_europa AND not 30 <= age < 40
+65,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+65,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+65,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+65,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+66,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+66,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+66,CHANGE_HOUSE,own,house_rent AND job_impiegato
+66,STOP,0,50000 <= income < 70000 AND not job_manager
+67,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+67,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+67,STOP,0,50000 <= income < 70000 AND not job_manager
+68,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+68,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+68,STOP,0,50000 <= income < 70000 AND not job_manager
+69,CHANGE_HOUSE,own,not job_impiegato AND job_manager AND not house_own AND not education_diploma AND not education_nessuno
+69,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND job_manager AND not education_triennale AND not relationship_single
+69,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND not country_italia
+70,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+70,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+70,CHANGE_HOUSE,own,house_rent AND job_impiegato
+70,STOP,0,50000 <= income < 70000 AND not job_manager
+71,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+71,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+71,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+72,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+72,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+72,CHANGE_HOUSE,own,house_rent AND job_impiegato
+72,STOP,0,50000 <= income < 70000 AND not job_manager
+73,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+73,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+73,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+74,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+74,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+74,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+75,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+75,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+75,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+75,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+75,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+76,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+76,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+76,STOP,0,50000 <= income < 70000 AND not job_manager
+77,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+77,STOP,0,50000 <= income < 70000 AND not job_manager
+78,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+78,CHANGE_EDUCATION,triennale,education_nessuno
+78,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+78,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+79,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+79,CHANGE_EDUCATION,triennale,education_nessuno
+79,CHANGE_HOUSE,own,house_rent AND job_impiegato
+79,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+79,CHANGE_INCOME,20000,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND 40 <= age < 50 AND sex_male AND not relationship_divorziato/a AND not 10000 <= credit < 30000
+79,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+79,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+80,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+80,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+80,CHANGE_HOUSE,own,house_rent AND job_impiegato
+80,STOP,0,50000 <= income < 70000 AND not job_manager
+81,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+81,STOP,0,50000 <= income < 70000 AND not job_manager
+82,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+82,CHANGE_EDUCATION,triennale,education_nessuno
+82,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND relationship_vedovo/a AND country_italia AND 50 <= age < 60 AND not 30000 <= credit < 50000
+82,CHANGE_HOUSE,own,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND not house_own
+82,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+82,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND country_italia AND not sex_male
+82,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+83,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+83,CHANGE_EDUCATION,triennale,education_nessuno
+83,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+83,CHANGE_INCOME,20000,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND not 40 <= age < 50 AND not country_italia AND 30000 <= credit < 50000 AND relationship_divorziato/a
+83,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+83,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+84,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+84,STOP,0,not education_nessuno AND not education_diploma AND not house_rent AND 50000 <= income < 70000 AND job_impiegato
+85,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+85,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+85,STOP,0,50000 <= income < 70000 AND not job_manager
+86,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+86,CHANGE_EDUCATION,triennale,education_nessuno
+86,CHANGE_HOUSE,own,house_rent AND job_impiegato
+86,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+86,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+87,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+87,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+87,CHANGE_HOUSE,own,house_rent AND job_impiegato
+87,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+87,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+88,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+88,CHANGE_EDUCATION,triennale,education_nessuno
+88,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+88,CHANGE_HOUSE,own,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND not house_own
+88,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+88,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+88,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+89,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+89,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+89,CHANGE_HOUSE,own,house_rent AND job_impiegato
+89,STOP,0,50000 <= income < 70000 AND not job_manager
+90,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+90,CHANGE_EDUCATION,triennale,education_nessuno
+90,CHANGE_HOUSE,own,house_rent AND job_impiegato
+90,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+90,CHANGE_RELATION,sposato/a,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND 40 <= age < 50 AND sex_male AND relationship_divorziato/a AND not country_italia
+90,CHANGE_INCOME,20000,not education_magistrale AND not job_ceo
+90,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+90,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+91,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+91,CHANGE_EDUCATION,triennale,education_nessuno
+91,CHANGE_INCOME,20000,not house_rent AND not 50000 <= income < 70000 AND job_impiegato AND not education_magistrale AND not relationship_vedovo/a
+91,CHANGE_INCOME,20000,not 30000 <= income < 50000 AND 10000 <= income < 30000 AND house_own AND not relationship_single AND not relationship_vedovo/a AND not 40 <= age < 50 AND not country_italia AND 30000 <= credit < 50000 AND relationship_divorziato/a
+91,CHANGE_INCOME,20000,30000 <= income < 50000 AND not education_magistrale AND not country_italia
+91,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+92,CHANGE_HOUSE,own,not job_impiegato AND job_manager AND not house_own AND not education_diploma AND not education_nessuno
+92,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND job_manager AND not education_triennale AND not relationship_single
+92,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND not country_italia
+93,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+93,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+93,CHANGE_HOUSE,own,house_rent AND job_impiegato
+93,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+93,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+94,CHANGE_EDUCATION,triennale,not job_impiegato AND job_manager AND not house_own AND not education_diploma AND education_nessuno
+94,CHANGE_HOUSE,own,house_rent AND not job_impiegato AND not job_ceo AND not 40 <= age < 50 AND 70000 <= income < 100000 AND relationship_sposato/a AND country_italia
+94,CHANGE_JOB,ceo,not 50000 <= income < 70000 AND 70000 <= income < 100000 AND job_manager AND education_triennale AND not country_europa AND 30 <= age < 40
+94,CHANGE_INCOME,20000,not education_nessuno AND not education_diploma AND not house_rent AND not 50000 <= income < 70000 AND house_own AND not relationship_vedovo/a
+94,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+95,CHANGE_HOUSE,own,not job_impiegato AND job_manager AND not house_own AND not education_diploma AND not education_nessuno
+95,CHANGE_INCOME,20000,50000 <= income < 70000 AND job_manager AND not country_extra-europa
+95,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND job_manager AND not 50000 <= income < 70000 AND not 1000 <= credit < 10000 AND country_italia AND not relationship_divorziato/a
+96,CHANGE_HOUSE,own,job_impiegato AND not education_diploma AND not education_nessuno AND house_rent
+96,STOP,0,50000 <= income < 70000 AND not job_manager
+97,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+97,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+97,STOP,0,50000 <= income < 70000 AND not job_manager
+98,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+98,CHANGE_EDUCATION,triennale,not education_nessuno AND education_diploma
+98,CHANGE_HOUSE,own,house_rent AND job_impiegato
+98,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+98,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager
+99,CHANGE_JOB,impiegato,not job_impiegato AND not job_manager AND not job_ceo
+99,CHANGE_HOUSE,own,not education_nessuno AND not education_diploma AND house_rent
+99,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 70000 <= income < 100000
+99,STOP,0,not 30000 <= income < 50000 AND not 10000 <= income < 30000 AND not education_diploma AND not job_manager

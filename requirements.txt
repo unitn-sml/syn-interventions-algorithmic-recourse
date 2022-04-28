@@ -1,0 +1,11 @@
+gower==0.0.5
+matplotlib==3.5.0
+numpy==1.20.3
+pandas==1.0.5
+pymoo==0.5.0
+PyYAML==6.0
+scikit_learn==1.0.2
+scipy==1.7.2
+seaborn==0.11.2
+torch==1.10.0
+tqdm==4.62.3

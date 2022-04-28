@@ -1,0 +1,92 @@
+id,program,arguments,rule
+0,CHANGE_SAVINGS,moderate,saving_accounts_little AND job_unskilled_resident AND not checking_account_moderate
+0,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND 33 <= age < 47 AND not 4794 <= credit_amount < 9588 AND not purpose_education
+0,STOP,0,True
+1,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+1,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+1,STOP,0,True
+2,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+2,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND 33 <= age < 47 AND not 4794 <= credit_amount < 9588 AND not purpose_education
+2,STOP,0,True
+3,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+3,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+3,STOP,0,True
+4,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+4,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+4,STOP,0,True
+5,CHANGE_DURATION,10,saving_accounts_little AND job_unskilled_resident AND checking_account_moderate AND not purpose_business
+5,CHANGE_PURPOSE,vacation/others,True
+5,STOP,0,True
+6,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+6,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+6,STOP,0,True
+7,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+7,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND 33 <= age < 47 AND not 4794 <= credit_amount < 9588 AND not purpose_education
+7,STOP,0,True
+8,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+8,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND 33 <= age < 47 AND not 4794 <= credit_amount < 9588 AND not purpose_education
+8,STOP,0,True
+9,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+9,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND 33 <= age < 47 AND not 4794 <= credit_amount < 9588 AND not purpose_education
+9,STOP,0,True
+10,CHANGE_SAVINGS,moderate,saving_accounts_little AND job_unskilled_resident AND not checking_account_moderate
+10,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+10,STOP,0,True
+11,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+11,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+11,STOP,0,True
+12,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+12,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+12,STOP,0,True
+13,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+13,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+13,STOP,0,True
+14,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+14,STOP,0,checking_account_unknown AND not purpose_car
+15,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+15,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+15,STOP,0,True
+16,CHANGE_SAVINGS,moderate,not saving_accounts_little AND saving_accounts_unknown AND not 9588 <= credit_amount < 14382
+16,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+16,STOP,0,True
+17,CHANGE_DURATION,10,saving_accounts_little AND job_unskilled_resident AND checking_account_moderate AND not purpose_business
+17,CHANGE_PURPOSE,vacation/others,True
+17,STOP,0,True
+18,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+18,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND 33 <= age < 47 AND not 4794 <= credit_amount < 9588 AND not purpose_education
+18,STOP,0,True
+19,CHANGE_PURPOSE,vacation/others,not saving_accounts_little AND not saving_accounts_unknown AND not purpose_radio/TV AND not purpose_furniture/equipment
+19,STOP,0,True
+20,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+20,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+20,STOP,0,True
+22,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+22,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+22,STOP,0,True
+23,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+23,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+23,STOP,0,True
+24,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+24,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+24,STOP,0,True
+25,CHANGE_PURPOSE,vacation/others,not saving_accounts_little AND not saving_accounts_unknown AND not purpose_radio/TV AND not purpose_furniture/equipment
+25,STOP,0,True
+26,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+26,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+26,STOP,0,True
+28,CHANGE_PURPOSE,vacation/others,not saving_accounts_little AND not saving_accounts_unknown AND purpose_radio/TV AND checking_account_little
+28,STOP,0,True
+29,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+29,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+29,STOP,0,True
+30,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+30,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND 33 <= age < 47 AND not 4794 <= credit_amount < 9588 AND not purpose_education
+30,STOP,0,True
+31,CHANGE_PURPOSE,vacation/others,not saving_accounts_little AND not saving_accounts_unknown AND not purpose_radio/TV AND not purpose_furniture/equipment
+31,STOP,0,True
+32,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+32,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND not 33 <= age < 47
+32,STOP,0,True
+33,CHANGE_SAVINGS,moderate,saving_accounts_little AND not job_unskilled_resident
+33,CHANGE_PURPOSE,vacation/others,not checking_account_unknown AND not purpose_domestic_appliances AND not 14382 <= credit_amount < 19176 AND 33 <= age < 47 AND not 4794 <= credit_amount < 9588 AND not purpose_education
+33,STOP,0,True

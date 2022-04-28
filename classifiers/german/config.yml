@@ -1,0 +1,23 @@
+seed: 2021
+data: "./data/german_credit/german_credit_data.csv"
+train_save_path: "./data/german_credit/train.csv"
+test_save_path: "./data/german_credit/test.csv"
+layers: 5
+categorical:
+  - "sex"
+  - "job"
+  - "housing"
+  - "saving_accounts"
+  - "checking_account"
+  - "purpose"
+numerical:
+  - "age"
+  - "credit_amount"
+  - "duration"
+resample: true
+target: "risk"
+target_bad: "bad"
+target_good: "good"
+save_path: "models"
+model_name: "german_classifier"
+iterations: 500

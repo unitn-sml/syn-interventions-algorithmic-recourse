@@ -1,0 +1,19 @@
+seed: 2021
+data: "data/synthetic/train.csv"
+categorical:
+  - "education"
+  - "job"
+  - "house"
+  - "sex"
+  - "relationship"
+  - "country"
+numerical:
+  - "age"
+  - "credit"
+  - "income"
+target: "loan"
+target_good: "good"
+target_bad: "bad"
+save_path: "models"
+model_name: "synthetic_classifier"
+iterations: 5

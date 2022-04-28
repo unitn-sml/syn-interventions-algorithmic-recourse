@@ -1,0 +1,348 @@
+id,program,arguments,rule
+0,CHANGE_HOUSE,own,house_rent
+0,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+0,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND education_magistrale AND not relationship_single AND 30000 <= savings < 50000 AND not relationship_vedovo/a AND not country_italia
+0,STOP,0,True
+1,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+1,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+1,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+1,STOP,0,True
+2,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+2,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+2,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+2,CHANGE_HOUSE,own,True
+2,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+2,STOP,0,True
+3,CHANGE_HOUSE,own,house_rent
+3,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+3,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND education_magistrale AND not relationship_single AND 30000 <= savings < 50000 AND not relationship_vedovo/a AND not country_italia
+3,STOP,0,True
+4,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+4,STOP,0,job_impiegato AND house_own AND not 30000 <= income < 50000
+5,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+5,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+5,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+5,CHANGE_HOUSE,own,True
+5,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+5,STOP,0,True
+6,CHANGE_HOUSE,own,house_rent
+6,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+6,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+8,CHANGE_HOUSE,own,house_rent
+8,CHANGE_EDUCATION,triennale,not education_diploma AND not job_impiegato AND education_nessuno
+8,CHANGE_JOB,ceo,not job_impiegato AND 2000 <= expenses < 4000 AND not 50000 <= income < 70000 AND relationship_sposato/a AND purpose_car AND not 1000 <= credit < 10000
+8,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND 70000 <= income < 100000 AND job_ceo
+8,STOP,0,True
+9,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+9,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+9,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+9,STOP,0,True
+10,CHANGE_HOUSE,own,house_rent
+10,CHANGE_EDUCATION,triennale,not education_diploma AND not job_impiegato AND education_nessuno
+10,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+10,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+10,STOP,0,True
+11,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+11,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+11,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+12,CHANGE_HOUSE,own,house_rent
+12,CHANGE_EDUCATION,triennale,education_diploma
+12,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+12,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+12,STOP,0,True
+13,CHANGE_JOB,ceo,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND job_impiegato AND not 30000 <= income < 50000
+13,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+14,CHANGE_HOUSE,own,house_rent
+14,CHANGE_EDUCATION,triennale,not education_diploma AND not job_impiegato AND education_nessuno
+14,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+14,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+14,STOP,0,True
+15,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND not education_diploma AND education_nessuno
+15,CHANGE_INCOME,20000,job_impiegato AND house_own AND 30000 <= income < 50000
+15,STOP,0,True
+16,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND not education_diploma AND education_nessuno
+16,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+16,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+16,STOP,0,True
+17,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+17,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+17,STOP,0,True
+18,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+18,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+18,STOP,0,True
+19,CHANGE_HOUSE,own,house_rent
+19,CHANGE_EDUCATION,triennale,not education_diploma AND not job_impiegato AND education_nessuno
+19,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+19,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+19,STOP,0,True
+20,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+20,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+20,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+20,CHANGE_HOUSE,own,True
+20,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+20,STOP,0,True
+22,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND not education_diploma AND education_nessuno
+22,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+22,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+22,STOP,0,True
+23,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+23,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND education_magistrale AND relationship_single AND not 500 <= expenses < 1000 AND not credit_score_2 AND not credit_score_5
+23,STOP,0,True
+25,CHANGE_HOUSE,own,house_rent
+25,CHANGE_EDUCATION,triennale,education_diploma
+25,STOP,0,job_impiegato AND house_own AND not 30000 <= income < 50000
+26,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+26,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+26,STOP,0,True
+27,CHANGE_HOUSE,own,house_rent
+27,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+27,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+27,STOP,0,True
+28,CHANGE_HOUSE,own,house_rent
+28,CHANGE_EDUCATION,triennale,not education_diploma AND job_impiegato AND not 0 <= savings < 10000 AND not 30000 <= income < 50000 AND education_nessuno
+28,STOP,0,job_impiegato AND house_own AND not 30000 <= income < 50000
+29,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+29,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+29,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+29,STOP,0,True
+30,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND not education_diploma AND education_nessuno
+30,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+30,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+30,STOP,0,True
+31,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND not education_diploma AND education_nessuno
+31,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+31,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+31,STOP,0,True
+32,CHANGE_HOUSE,own,house_rent
+32,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+32,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+32,STOP,0,True
+33,CHANGE_JOB,ceo,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND job_impiegato AND not 30000 <= income < 50000
+33,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+34,CHANGE_JOB,ceo,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND job_manager
+34,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND 70000 <= income < 100000 AND job_ceo
+34,STOP,0,True
+35,CHANGE_HOUSE,own,house_rent
+35,CHANGE_JOB,ceo,not education_diploma AND not job_impiegato AND not education_nessuno AND job_manager
+35,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND education_magistrale AND not relationship_single AND not 30000 <= savings < 50000 AND not credit_score_4
+35,STOP,0,True
+36,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+36,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+36,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+37,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+37,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+38,CHANGE_HOUSE,own,house_rent
+38,CHANGE_JOB,ceo,not education_diploma AND not job_impiegato AND not education_nessuno AND job_manager
+38,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND 70000 <= income < 100000 AND job_ceo
+38,STOP,0,True
+39,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+39,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+39,STOP,0,True
+40,CHANGE_JOB,ceo,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND job_impiegato AND not 30000 <= income < 50000
+40,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+41,CHANGE_HOUSE,own,house_rent
+41,STOP,0,not education_diploma AND job_impiegato AND not 0 <= savings < 10000 AND not 30000 <= income < 50000 AND not education_nessuno
+42,CHANGE_HOUSE,own,house_rent
+42,STOP,0,not education_diploma AND job_impiegato AND not 0 <= savings < 10000 AND not 30000 <= income < 50000 AND not education_nessuno
+43,CHANGE_HOUSE,own,house_rent
+43,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+43,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND education_magistrale AND not relationship_single AND not 30000 <= savings < 50000 AND not credit_score_4
+43,STOP,0,True
+44,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+44,STOP,0,not job_impiegato AND 2000 <= expenses < 4000 AND not 50000 <= income < 70000 AND not relationship_sposato/a AND not credit_score_0 AND not credit_score_5
+45,CHANGE_HOUSE,own,house_rent
+45,CHANGE_EDUCATION,triennale,education_diploma
+45,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+45,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+45,STOP,0,True
+46,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+46,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+47,CHANGE_JOB,ceo,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND job_impiegato AND not 30000 <= income < 50000
+47,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+48,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+48,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+48,STOP,0,True
+49,CHANGE_HOUSE,own,house_rent
+49,CHANGE_EDUCATION,triennale,education_diploma
+49,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+49,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+49,STOP,0,True
+50,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+50,STOP,0,job_impiegato AND house_own AND not 30000 <= income < 50000
+51,CHANGE_HOUSE,own,house_rent
+51,CHANGE_EDUCATION,triennale,not education_diploma AND job_impiegato AND not 0 <= savings < 10000 AND 30000 <= income < 50000 AND 30000 <= credit < 50000 AND not education_magistrale
+51,CHANGE_INCOME,20000,job_impiegato AND house_own AND 30000 <= income < 50000
+51,STOP,0,True
+52,CHANGE_JOB,ceo,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND job_manager
+52,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND 70000 <= income < 100000 AND job_ceo
+52,STOP,0,True
+53,CHANGE_HOUSE,own,house_rent
+53,CHANGE_EDUCATION,triennale,not education_diploma AND not job_impiegato AND education_nessuno
+53,CHANGE_JOB,ceo,not job_impiegato AND 2000 <= expenses < 4000 AND not 50000 <= income < 70000 AND not relationship_sposato/a AND not credit_score_0 AND credit_score_5 AND relationship_divorziato/a
+53,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND 70000 <= income < 100000 AND job_ceo
+53,STOP,0,True
+54,CHANGE_HOUSE,own,house_rent
+54,CHANGE_EDUCATION,triennale,education_diploma
+54,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+54,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND 10000 <= income < 30000
+54,STOP,0,True
+55,CHANGE_HOUSE,own,house_rent
+55,CHANGE_EDUCATION,triennale,education_diploma
+55,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+55,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+56,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+56,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+56,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+56,CHANGE_HOUSE,own,True
+56,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+56,STOP,0,True
+59,CHANGE_HOUSE,own,house_rent
+59,CHANGE_JOB,ceo,not education_diploma AND not job_impiegato AND not education_nessuno AND job_manager
+59,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND 70000 <= income < 100000 AND job_ceo
+59,STOP,0,True
+60,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+60,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+60,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+60,CHANGE_HOUSE,own,True
+60,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+60,STOP,0,True
+61,CHANGE_HOUSE,own,house_rent
+61,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+61,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+61,STOP,0,True
+62,CHANGE_JOB,ceo,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND job_manager
+62,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND 70000 <= income < 100000 AND job_ceo
+62,STOP,0,True
+63,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+63,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+63,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+63,CHANGE_HOUSE,own,True
+63,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+63,STOP,0,True
+64,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+64,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+64,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+64,CHANGE_HOUSE,own,True
+64,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+64,STOP,0,True
+65,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+65,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+65,STOP,0,True
+66,CHANGE_HOUSE,own,house_rent
+66,CHANGE_EDUCATION,triennale,education_diploma
+66,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+66,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+66,STOP,0,True
+67,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+67,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+67,STOP,0,True
+69,CHANGE_HOUSE,own,house_rent
+69,CHANGE_EDUCATION,triennale,education_diploma
+69,STOP,0,job_impiegato AND house_own AND not 30000 <= income < 50000
+70,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+70,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+70,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+70,CHANGE_HOUSE,own,True
+70,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+70,STOP,0,True
+71,CHANGE_JOB,ceo,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND job_impiegato AND not 30000 <= income < 50000
+71,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+72,CHANGE_HOUSE,own,house_rent
+72,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+72,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND education_magistrale AND not relationship_single AND not 30000 <= savings < 50000 AND not credit_score_4
+72,STOP,0,True
+73,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND not education_diploma AND education_nessuno
+73,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+73,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+73,STOP,0,True
+74,CHANGE_HOUSE,own,house_rent
+74,CHANGE_EDUCATION,triennale,education_diploma
+74,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+74,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+74,STOP,0,True
+75,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+75,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+75,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+75,CHANGE_HOUSE,own,True
+75,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+75,STOP,0,True
+76,CHANGE_HOUSE,own,house_rent
+76,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+76,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND education_magistrale AND relationship_single AND not 500 <= expenses < 1000 AND not credit_score_2 AND not credit_score_5
+76,STOP,0,True
+78,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+78,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+78,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+78,CHANGE_HOUSE,own,True
+78,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+78,STOP,0,True
+79,CHANGE_HOUSE,own,house_rent
+79,CHANGE_JOB,ceo,not education_diploma AND not job_impiegato AND not education_nessuno AND job_manager
+79,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND 70000 <= income < 100000 AND job_ceo
+79,STOP,0,True
+80,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+80,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+80,STOP,0,True
+81,CHANGE_HOUSE,own,house_rent
+81,CHANGE_EDUCATION,triennale,not education_diploma AND not job_impiegato AND education_nessuno
+81,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+81,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+81,STOP,0,True
+82,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+82,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+82,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+82,CHANGE_HOUSE,own,True
+82,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+82,STOP,0,True
+84,CHANGE_HOUSE,own,house_rent
+84,STOP,0,not education_diploma AND job_impiegato AND not 0 <= savings < 10000 AND not 30000 <= income < 50000 AND not education_nessuno
+85,CHANGE_HOUSE,own,house_rent
+85,CHANGE_JOB,ceo,not education_diploma AND not job_impiegato AND not education_nessuno AND job_manager
+85,CHANGE_INCOME,20000,50000 <= income < 70000 AND 2000 <= expenses < 4000 AND 70000 <= savings < 100000
+85,STOP,0,True
+86,CHANGE_HOUSE,own,house_rent
+86,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+86,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+86,STOP,0,True
+87,CHANGE_HOUSE,own,house_rent
+87,CHANGE_EDUCATION,triennale,not education_diploma AND not job_impiegato AND education_nessuno
+87,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+87,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+87,STOP,0,True
+88,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+88,CHANGE_INCOME,50000,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND not house_none
+88,STOP,0,True
+89,CHANGE_INCOME,20000,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND job_impiegato AND 30000 <= income < 50000
+89,STOP,0,True
+90,CHANGE_HOUSE,own,not house_rent AND house_none AND not purpose_education AND not 0 <= income < 10000
+90,CHANGE_EDUCATION,triennale,education_diploma
+90,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+90,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+90,STOP,0,True
+91,CHANGE_HOUSE,own,house_rent
+91,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+91,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+92,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+92,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+92,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+92,CHANGE_HOUSE,own,True
+92,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+92,STOP,0,True
+93,CHANGE_EDUCATION,triennale,not house_rent AND not house_none AND education_diploma
+93,CHANGE_JOB,impiegato,not job_impiegato AND not 2000 <= expenses < 4000 AND not job_ceo
+93,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+93,STOP,0,True
+95,CHANGE_JOB,impiegato,not house_rent AND house_none AND not purpose_education AND 0 <= income < 10000
+95,CHANGE_EDUCATION,triennale,not 50000 <= income < 70000 AND 0 <= savings < 10000 AND house_none
+95,CHANGE_PURPOSE,education,job_impiegato AND not house_own
+95,CHANGE_HOUSE,own,True
+95,CHANGE_INCOME,50000,not education_diploma AND job_impiegato AND 0 <= savings < 10000
+95,STOP,0,True
+96,CHANGE_JOB,impiegato,not house_rent AND not house_none AND not education_diploma AND not education_nessuno AND not job_impiegato AND not job_manager
+96,STOP,0,50000 <= income < 70000 AND not 2000 <= expenses < 4000
+97,CHANGE_HOUSE,own,house_rent
+97,CHANGE_JOB,impiegato,not education_diploma AND not job_impiegato AND not education_nessuno AND not job_manager AND not 100000 <= savings < 150000
+97,CHANGE_INCOME,20000,not 50000 <= income < 70000 AND not 0 <= savings < 10000 AND not 10000 <= income < 30000 AND not education_magistrale AND not 70000 <= income < 100000 AND not education_phd
+97,STOP,0,True
+98,CHANGE_HOUSE,own,house_rent
+98,STOP,0,not education_diploma AND job_impiegato AND not 0 <= savings < 10000 AND not 30000 <= income < 50000 AND not education_nessuno

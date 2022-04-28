@@ -1,0 +1,28 @@
+seed: 2021
+data: "data/adult_score/adult.data"
+train_save_path: "./data/adult_score/train.csv"
+test_save_path: "./data/adult_score/test.csv"
+layers: 5
+categorical:
+  - "workclass"
+  - "education"
+  - "marital_status"
+  - "occupation"
+  - "relationship"
+  - "race"
+  - "sex"
+  - "native_country"
+numerical:
+  - "age"
+  - "fnlwgt"
+  - "education_num"
+  - "capital_gain"
+  - "capital_loss"
+  - "hours_per_week"
+target: "income_target"
+target_good: ">50K"
+target_bad: "<=50K"
+save_path: "models"
+model_name: "adult_classifier"
+iterations: 4
+resample: true

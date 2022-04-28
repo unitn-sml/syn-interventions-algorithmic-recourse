@@ -1,0 +1,21 @@
+experiments:
+  configs:
+    - "synthetizer/synthetic_long/config_syn.yml"
+    - "synthetizer/german/config_german.yml"
+    - "synthetizer/synthetic/config_syn.yml"
+    - "synthetizer/adult_score/config_adult.yml"
+  dataset:
+    - "syn_long"
+    - "german"
+    - "syn"
+    - "adult"
+  models:
+    - "models/mcts_models/synthetic_long_experiment-2021_12_21-12_59_46.model"
+    - "models/mcts_models/german_experiment-2021_12_20-16_27_11.model"
+    - "models/mcts_models/synthetic_experiment-2021_12_20-16_26_7.model"
+    - "models/mcts_models/adult_experiment-2021_12_20-16_27_55.model"
+  programs:
+    - "models/automa/synthetic_long.pth"
+    - "models/automa/german.pth"
+    - "models/automa/synthetic.pth"
+    - "models/automa/adult.pth"
