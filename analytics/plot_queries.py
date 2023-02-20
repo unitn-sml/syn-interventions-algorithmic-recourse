@@ -11,17 +11,37 @@ np.random.seed(seed)
 N_EPISODES = 10
 
 import seaborn as sns
-import matplotlib.pyplot as plt
-plt.rcParams['mathtext.fontset'] = 'cm'
-
-sns.set_context("paper", font_scale=1.3)
+sns.set_context("talk")
 sns.set_style("white")
 sns.set_palette(sns.color_palette("colorblind"))
+
+LEGEND_FONT_SIZE = 13
+AXES_TITLE_SIZE = 15
+AXES_LABEL_SIZE = 15
+TICKS_SIZE = 15
+
+sns.set(style="white")
+sns.set_palette(sns.color_palette("colorblind"))
+sns.set_context("talk", rc={
+    "font.size":LEGEND_FONT_SIZE,
+    "legend.fontsize": LEGEND_FONT_SIZE,
+    "axes.titlesize":AXES_TITLE_SIZE,
+    "axes.labelsize":AXES_LABEL_SIZE,
+    "xtick.labelsize": TICKS_SIZE,
+    "ytick.labelsize": TICKS_SIZE
+})
+
+
+import matplotlib.pyplot as plt
+plt.rcParams['mathtext.fontset'] = 'cm'
+plt.rcParams['font.family'] = "Computer Modern Roman"
+plt.rc('text', usetex=True)
+plt.rc('text.latex', preamble=r'\usepackage{amsmath}')
 
 if __name__ == "__main__":
 
     parser = ArgumentParser()
-    parser.add_argument("path", nargs="+", type=str, help="Path to the correct traces")
+    parser.add_argument("--path", nargs="+", type=str, help="Path to the correct traces", default="./analytics/evaluation/data/*")
 
     args = parser.parse_args()
 
@@ -39,13 +59,13 @@ if __name__ == "__main__":
     rename = {
         "cscf": "$M_{cscf}$",
         "cscf_small": "$M_{cscf}^{small}$",
-        "mcts (train)": "$M_{mcts}$ (train)",
-        "mcts (predict)": "$M_{mcts}$ (predict)",
-        "program (train)": "$M_{prog}$ (train)",
-        "program (predict)": "$M_{prog}$ (predict)"
+        "mcts (train)": r"$M_{\hbox{FARE}}$ (train)",
+        "mcts (predict)": r"$M_{\hbox{FARE}}$ (predict)",
+        "program (train)": r"$M_{\hbox{E-FARE}}$ (train)",
+        "program (predict)": r"$M_{\hbox{E-FARE}}$ (predict)"
     }
 
-    dataorder = ["german", "adult", "syn", "syn_long"]
+    dataorder = ["german", "adult", "syn", "syn\_long"]
 
     df = [
         ["cscf", "syn", 1000000],
@@ -84,18 +104,20 @@ if __name__ == "__main__":
 
     df.sort(key=lambda x: order.get(x[0]))
 
-    df = pd.DataFrame(df, columns=["method", "dataset", "# of queries"])
+    df = pd.DataFrame(df, columns=["method", "dataset", "\# of queries"])
 
     df["method"] = df["method"].apply(lambda x: rename.get(x))
+
+    df['dataset'] = df['dataset'].apply(lambda x: "syn\_long" if x == "syn_long" else x)
 
     current_palette = sns.color_palette()
     # Fix color order to make it consistent
     new_color_order = [current_palette[2], current_palette[3], current_palette[0], current_palette[1], current_palette[4], current_palette[7]]
 
-    brp = sns.barplot(x="dataset", y="# of queries", hue="method",
+    brp = sns.barplot(x="dataset", y="\# of queries", hue="method",
                       order=dataorder, data=df, ax=ax, palette=new_color_order)
 
-    brp.legend(loc='upper center', ncol=3, bbox_to_anchor=(0.5, 1.40), fontsize="medium")
+    brp.legend(loc='upper center', ncol=3, bbox_to_anchor=(0.5, 1.40))
     brp.set(yscale="log")
     plt.tight_layout()
     plt.savefig("blackbox_calls.png", bbox_inches='tight', dpi=600)
