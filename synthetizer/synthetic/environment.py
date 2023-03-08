@@ -1,7 +1,7 @@
 from classifiers.train_model import Net
-from data.synthetic.generate import get_job, get_income, get_housing, get_loan
+from data.synthetic.generate import get_loan
 
-from generalized_alphanpi.environments.environment import Environment
+from rl_mcts.core.environment import Environment
 
 from collections import OrderedDict
 
@@ -14,6 +14,22 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from tqdm import tqdm
+
+def get_loan(f):
+
+    job, education, income = f.get("job"), f.get("education"), f.get("income")
+    housing = f.get("house")
+
+    if education == "triennale" or education == "magistrale" or education == "phd":
+        if job == "impiegato" or job == "private":
+            if income >= 50000:
+                if housing == "own":
+                    return "good"
+        elif job == "manager" or job == "ceo":
+            if income >= 80000:
+                return "good"
+
+    return "bad"
 
 class SynEnvEncoder(nn.Module):
     '''
@@ -33,8 +49,7 @@ class SynEnvEncoder(nn.Module):
 
 class SynEnvironmentDeter(Environment):
 
-    def __init__(self, classifier, encoder, scaler, dataset="data/synthetic/train.csv",
-                 sample_from_errors_prob=0.3, sample_env=True):
+    def __init__(self, features, weights, encoder, scaler):
         self.prog_to_func = OrderedDict(sorted({'STOP': self._stop,
                                                 'CHANGE_EDUCATION': self._change_education,
                                                 'CHANGE_JOB': self._change_occupation,
@@ -78,32 +93,6 @@ class SynEnvironmentDeter(Environment):
                                                 'CHANGE_RELATION': self._change_relation_cost
                                                 }.items()))
 
-        self.complete_arguments = []
-
-        for k, v in self.arguments.items():
-            self.complete_arguments += v
-
-        self.arguments_index = [(i, v) for i, v in enumerate(self.complete_arguments)]
-
-        self.max_depth_dict = {1: 7}
-
-        for idx, key in enumerate(sorted(list(self.programs_library.keys()))):
-            self.programs_library[key]['index'] = idx
-
-        self.data = pd.read_csv(dataset, sep=",")
-        self.data = self.data.dropna() # Drop columns with na
-        self.data = self.data[self.data.loan == "bad"]
-
-        self.y = self.data.loan
-        self.y.reset_index(drop=True, inplace=True)
-
-        self.data = self.data.drop(columns=["loan"])
-        self.data.reset_index(drop=True, inplace=True)
-
-        # Load encoder (one-hot) and scaler
-        self.data_encoder = pickle.load(open(encoder, "rb"))
-        self.data_scaler = pickle.load(open(scaler, "rb"))
-
         self.previous_classification = 0
         self.numerical_cols = ["age", "credit", "income"]
         self.categorical_cols = ["education", "job", "house", "sex", "relationship", "country"]
@@ -128,23 +117,18 @@ class SynEnvironmentDeter(Environment):
                               ]
         self.parsed_columns = self.boolean_cols + self.categorical_cols
 
-        # Needed for validation
-        self.sample_env = sample_env
-        self.current_idx = 0
+        self.setup_system(self.boolean_cols, self.categorical_cols, encoder, scaler,
+                      None, None, net_layers=5, net_size=108)
 
-        # Custom metric we want to print at each iteration
-        self.custom_tensorboard_metrics = {
-            "call_to_the_classifier": 0
-        }
+        self.max_depth_dict = {1: 7}
 
-        super().__init__(self.prog_to_func, self.prog_to_precondition, self.prog_to_postcondition,
+        super().__init__(features, weights, self.prog_to_func, self.prog_to_precondition, self.prog_to_postcondition,
                          self.programs_library, self.arguments, self.max_depth_dict,
                          complete_arguments=self.complete_arguments, prog_to_cost=self.prog_to_cost,
-                         sample_from_errors_prob=sample_from_errors_prob,
                          custom_tensorboard_metrics=self.custom_tensorboard_metrics)
 
     def get_state_str(self, state):
-        result = get_loan(state[2], state[1], state[3], state[5], state[4], state[7])
+        result = get_loan(state)
         return state, result
 
     def _placeholder_stop(self, args=None):
@@ -153,23 +137,23 @@ class SynEnvironmentDeter(Environment):
     def _get_boolean_conditions(self, data):
 
         return [
-            30 <= data[0] < 40,
-            40 <= data[0] < 50,
-            50 <= data[0] < 60,
-            data[0] >= 60,
-            0 <= int(data[5]) < 1000,
-            1000 <= data[5] < 10000,
-            10000 <= data[5] < 30000,
-            30000 <= data[5] < 50000,
-            data[5] >= 50000,
-            0 <= int(data[3]) < 10000,
-            10000 <= int(data[3]) < 30000,
-            30000 <= int(data[3]) < 50000,
-            50000 <= int(data[3]) < 70000,
-            70000 <= int(data[3]) < 100000,
-            100000 <= int(data[3]) < 150000,
-            150000 <= int(data[3]) < 200000,
-            data[3] >= 200000
+            30 <= data.get("age") < 40,
+            40 <= data.get("age") < 50,
+            50 <= data.get("age") < 60,
+            data.get("age") >= 60,
+            0 <= int(data.get("credit")) < 1000,
+            1000 <= data.get("credit") < 10000,
+            10000 <= data.get("credit") < 30000,
+            30000 <= data.get("credit") < 50000,
+            data.get("credit") >= 50000,
+            0 <= int(data.get("income")) < 10000,
+            10000 <= int(data.get("income")) < 30000,
+            30000 <= int(data.get("income")) < 50000,
+            50000 <= int(data.get("income")) < 70000,
+            70000 <= int(data.get("income")) < 100000,
+            100000 <= int(data.get("income")) < 150000,
+            150000 <= int(data.get("income")) < 200000,
+            data.get("income") >= 200000
         ]
 
     def parse_observation(self, data):
@@ -182,7 +166,7 @@ class SynEnvironmentDeter(Environment):
 
         booleans = self._get_boolean_conditions(data)
 
-        data = pd.DataFrame([data], columns=self.data.columns)
+        data = pd.DataFrame.from_records([data])
         data.drop(columns=self.numerical_cols, inplace=True)
 
         return booleans + data.values[0].tolist()
@@ -198,40 +182,19 @@ class SynEnvironmentDeter(Environment):
         return torch.FloatTensor(data.values[0]), data
 
     def transform_user(self):
-        data_df = pd.DataFrame([self.memory], columns=self.data.columns)
+        data_df = pd.DataFrame.from_records([self.features])
         return self.preprocess_single(data_df)
 
     def init_env(self):
 
-        self.memory = self.sample_from_failed_state("INTERVENE")
-        if self.memory is None:
-            if self.sample_env:
-                self.memory = self.data.sample(1).values.tolist()[0]
-            else:
-                self.memory = self.data.iloc[[self.current_idx]].values.tolist()[0]
-                if self.current_idx > len(self.data):
-                    self.current_idx = len(self.data) - 1
-
-        result = get_loan(self.memory[2], self.memory[1], self.memory[3], self.memory[5], self.memory[4], self.memory[7])
+        result = get_loan(self.features)
         classification = 1 if result == "bad" else 0
 
         self.previous_classification = classification
 
     def reset_env(self, task_index):
 
-        task_name = self.get_program_from_index(task_index)
-
-        self.memory = self.sample_from_failed_state(task_name)
-        if self.memory is None:
-            if self.sample_env:
-                self.memory = self.data.sample(1).values.tolist()[0]
-            else:
-                self.memory = self.data.iloc[[self.current_idx]].values.tolist()[0]
-                self.current_idx += 1
-                if self.current_idx > len(self.data):
-                    self.current_idx = len(self.data)-1
-
-        result = get_loan(self.memory[2], self.memory[1], self.memory[3], self.memory[5], self.memory[4], self.memory[7])
+        result = get_loan(self.features)
         classification = 1 if result == "bad" else 0
 
         self.previous_classification = classification
@@ -240,7 +203,7 @@ class SynEnvironmentDeter(Environment):
         return 0, 0
 
     def reset_to_state(self, state):
-        self.memory = state.copy()
+        self.features = state.copy()
 
     def get_stop_action_index(self):
         return self.programs_library["STOP"]["index"]
@@ -249,86 +212,86 @@ class SynEnvironmentDeter(Environment):
         return True
 
     def _change_education(self, arguments=None):
-        self.memory[1] = arguments
+        self.features["education"] = arguments
 
     def _change_occupation(self, arguments=None):
-        self.memory[2] = arguments
+        self.features["job"] = arguments
 
     def _change_income(self, arguments=None):
-        self.memory[3] += arguments
+        self.features["income"] += arguments
 
     def _change_house(self, arguments=None):
-        self.memory[4] = arguments
+        self.features["house"] = arguments
 
     def _change_relation(self, arguments=None):
-        self.memory[7] = arguments
+        self.features["relationship"] = arguments
 
     def _change_income_p(self, arguments=None):
-        return self.memory[3] > 0
+        return self.features["income"] > 0
 
     def _change_education_p(self, arguments=None):
-        return self.arguments["EDU"].index(arguments) > self.arguments["EDU"].index(self.memory[1])
+        return self.arguments["EDU"].index(arguments) > self.arguments["EDU"].index(self.features.get("education"))
 
     def _change_occupation_p(self, arguments=None):
-        return self.arguments["WORK"].index(arguments) > self.arguments["WORK"].index(self.memory[2])
+        return self.arguments["WORK"].index(arguments) > self.arguments["WORK"].index(self.features.get("job"))
 
     def _change_house_p(self, arguments=None):
-        return self.arguments["HOUS"].index(arguments) > self.arguments["HOUS"].index(self.memory[4])
+        return self.arguments["HOUS"].index(arguments) > self.arguments["HOUS"].index(self.features.get("house"))
 
     def _change_relation_p(self, arguments=None):
 
-        if self.memory[7] in ["single", "divorziato/a"]:
-            if self.memory[7] == "single":
+        if self.features.get("relationship") in ["single", "divorziato/a"]:
+            if self.features.get("relationship") == "single":
                 return arguments != "vedovo/a" and arguments != "divorziato/a"
             else:
                 return arguments != "vedovo/a"
 
-        return self.arguments["RELATION"].index(arguments) > self.arguments["RELATION"].index(self.memory[7])
+        return self.arguments["RELATION"].index(arguments) > self.arguments["RELATION"].index(self.features.get("relationship"))
 
     def _rescale_by_relation(self):
-        if self.memory[7] == "sposato/a":
+        if self.features.get("relationship") == "sposato/a":
             return 0.5
-        elif self.memory[7] == "divorziato/a":
+        elif self.features.get("relationship") == "divorziato/a":
             return 0.8
         else:
             return 1
 
     def _rescale_by_edu(self):
-        if self.memory[1] == "phd":
+        if self.features.get("education") == "phd":
             return 0.3
-        elif self.memory[1] == "magistrale":
+        elif self.features.get("education") == "magistrale":
             return 0.4
-        elif self.memory[1] == "triennale":
+        elif self.features.get("education") == "triennale":
             return 0.5
-        elif self.memory[1] == "diploma":
+        elif self.features.get("education") == "diploma":
             return 0.7
         else:
             return 1
 
     def _rescale_by_job(self):
-        if self.memory[2] == "ceo":
+        if self.features.get("job") == "ceo":
             return 0.4
-        if self.memory[2] == "manager":
+        if self.features.get("job") == "manager":
             return 0.5
-        elif self.memory[2] == "privato":
+        elif self.features.get("job") == "privato":
             return 0.6
-        elif self.memory[2] == "impiegato":
+        elif self.features.get("job") == "impiegato":
             return 0.7
-        elif self.memory[2] == "operaio":
+        elif self.features.get("job") == "operaio":
             return 0.8
         else:
             return 1
 
     def _rescale_by_income(self):
-        if self.memory[3] > 130000:
+        if self.features.get("income") > 130000:
             return 0.1
-        elif self.memory[3] > 100000:
+        elif self.features.get("income") > 100000:
             return 0.2
-        elif self.memory[3] > 70000:
+        elif self.features.get("income") > 70000:
             return 0.3
-        elif self.memory[3] > 50000:
+        elif self.features.get("income") > 50000:
             return 0.4
-        elif self.memory[3] > 30000:
+        elif self.features.get("income") > 30000:
             return 0.7
         else:
             return 1
@@ -390,7 +353,7 @@ class SynEnvironmentDeter(Environment):
 
     def _intervene_postcondition(self, init_state, current_state):
 
-        result = get_loan(self.memory[2], self.memory[1], self.memory[3], self.memory[5], self.memory[4], self.memory[7])
+        result = get_loan(self.features)
         val_out = 1 if result == "bad" else 0
 
         self.custom_tensorboard_metrics["call_to_the_classifier"] += 1
@@ -414,18 +377,13 @@ class SynEnvironmentDeter(Environment):
         data.drop(columns=self.numerical_cols, inplace=True)
 
         # Get boolean version of the features
-        numeric_bools = self._get_boolean_conditions(self.memory)
+        numeric_bools = self._get_boolean_conditions(self.features)
         bools = torch.FloatTensor(np.concatenate((numeric_bools, data.values[0]), axis=0))
 
-        # Get classification
-        #result = get_loan(self.memory[2], self.memory[1], self.memory[3], self.memory[5], self.memory[4], self.memory[7])
-        #classification = torch.FloatTensor([1]) if result == "bad" else torch.FloatTensor([0])
-
         return bools
-        #return torch.cat((bools,classification), 0)
 
     def get_state(self):
-        return list(self.memory)
+        return self.features.copy()
 
     def get_obs_dimension(self):
         return len(self.get_observation())
@@ -451,7 +409,6 @@ class SynEnvironmentDeter(Environment):
 
     def get_additional_parameters(self):
         return {
-            "programs_types": self.programs_library,
             "types": self.arguments
         }
 

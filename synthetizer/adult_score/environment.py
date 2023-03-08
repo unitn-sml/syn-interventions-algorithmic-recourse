@@ -1,6 +1,6 @@
 from classifiers.train_model import Net
 
-from generalized_alphanpi.environments.environment import Environment
+from rl_mcts.core.environment import Environment
 
 from collections import OrderedDict
 
@@ -32,8 +32,7 @@ class AdultEnvEncoder(nn.Module):
 
 class AdultEnvironment(Environment):
 
-    def __init__(self, classifier, encoder, scaler, dataset="./data/adult_score/train.csv",
-                 sample_from_errors_prob=0.3, sample_env=True):
+    def __init__(self, f, w, classifier, encoder, scaler):
 
         self.prog_to_func = OrderedDict(sorted({'STOP': self._stop,
                                                 'CHANGE_WORKCLASS': self._change_workclass,
@@ -129,21 +128,17 @@ class AdultEnvironment(Environment):
                                   "hours_per_week >= 100"
                               ]
 
+        # Set up the system with various informations
+        self.setup_system(self.boolean_cols, self.categorical_cols, encoder, scaler,
+                          classifier, Net, net_layers=5, net_size=108)
+
         # Set up the max length of the interventions
         self.max_depth_dict = {1: 5}
 
-        # Set up the dataset
-        self.setup_dataset(dataset, "<=50K", "income_target", "predicted")
-
-        # Set up the system with various informations
-        self.setup_system(self.boolean_cols, self.categorical_cols, encoder, scaler,
-                          classifier, Net, sample_env, net_layers=5, net_size=108)
-
         # Call parent constructor
-        super().__init__(self.prog_to_func, self.prog_to_precondition, self.prog_to_postcondition,
+        super().__init__(f,w, self.prog_to_func, self.prog_to_precondition, self.prog_to_postcondition,
                          self.programs_library, self.arguments, self.max_depth_dict,
                          complete_arguments=self.complete_arguments, prog_to_cost=self.prog_to_cost,
-                         sample_from_errors_prob=sample_from_errors_prob,
                          custom_tensorboard_metrics=self.custom_tensorboard_metrics)
 
     def get_state_str(self, state):
@@ -173,29 +168,29 @@ class AdultEnvironment(Environment):
     def _get_boolean_conditions(self, data):
 
         return [
-            data[0] < 17,
-            19 <= data[0] < 33,
-            33 <= data[0] < 47,
-            47 <= data[0] < 61,
-            61 <= data[0] < 75,
-            data[0] >= 90,
-            data[10] == 0,
-            0 < data[10] < 25000,
-            25000 <= data[10] < 50000,
-            50000 <= data[10] < 75000,
-            75000 <= data[10] < 99999,
-            data[10] >= 99999,
-            data[11] == 0,
-            0 <= data[11] < 1089,
-            1089 <= data[11] < 2178,
-            2178 <= data[11] < 3267,
-            3267 <= data[11] < 4356,
-            data[11] >= 4356,
-            0 <= data[12] < 25,
-            25 <= data[12] < 50,
-            50 <= data[12] < 75,
-            75 <= data[12] < 100,
-            data[12] >= 100
+            data.get("age") < 17,
+            19 <= data.get("age") < 33,
+            33 <= data.get("age") < 47,
+            47 <= data.get("age") < 61,
+            61 <= data.get("age") < 75,
+            data.get("age") >= 90,
+            data.get("capital_gain") == 0,
+            0 < data.get("capital_gain") < 25000,
+            25000 <= data.get("capital_gain") < 50000,
+            50000 <= data.get("capital_gain") < 75000,
+            75000 <= data.get("capital_gain") < 99999,
+            data.get("capital_gain") >= 99999,
+           data.get("capital_loss") == 0,
+            0 <=data.get("capital_loss") < 1089,
+            1089 <=data.get("capital_loss") < 2178,
+            2178 <=data.get("capital_loss") < 3267,
+            3267 <=data.get("capital_loss") < 4356,
+           data.get("capital_loss") >= 4356,
+            0 <= data.get("hours_per_week") < 25,
+            25 <= data.get("hours_per_week") < 50,
+            50 <= data.get("hours_per_week") < 75,
+            75 <= data.get("hours_per_week") < 100,
+            data.get("hours_per_week") >= 100
         ]
 
     def correct_numeric(self, df):
@@ -215,19 +210,10 @@ class AdultEnvironment(Environment):
         return torch.FloatTensor(data.values[0]), data
 
     def transform_user(self):
-        data_df = pd.DataFrame([self.memory], columns=self.data.columns)
+        data_df = pd.DataFrame.from_records([self.features])
         return self.preprocess_single(data_df)
 
     def init_env(self):
-
-        self.memory = self.sample_from_failed_state("INTERVENE")
-        if self.memory is None:
-            if self.sample_env:
-                self.memory = self.data.sample(1).values.tolist()[0]
-            else:
-                self.memory = self.data.iloc[[self.current_idx]].values.tolist()[0]
-                if self.current_idx > len(self.data):
-                    self.current_idx = len(self.data) - 1
 
         with torch.no_grad():
             tmp = self.transform_user()[0]
@@ -239,16 +225,6 @@ class AdultEnvironment(Environment):
 
         task_name = self.get_program_from_index(task_index)
 
-        self.memory = self.sample_from_failed_state(task_name)
-        if self.memory is None:
-            if self.sample_env:
-                self.memory = self.data.sample(1).values.tolist()[0]
-            else:
-                self.memory = self.data.iloc[[self.current_idx]].values.tolist()[0]
-                self.current_idx += 1
-                if self.current_idx > len(self.data):
-                    self.current_idx = len(self.data) - 1
-
         with torch.no_grad():
             tmp = self.transform_user()[0]
             val_out = self.classifier(tmp)
@@ -259,7 +235,7 @@ class AdultEnvironment(Environment):
         return 0, 0
 
     def reset_to_state(self, state):
-        self.memory = state.copy()
+        self.features = state.copy()
 
     def get_stop_action_index(self):
         return self.programs_library["STOP"]["index"]
@@ -270,42 +246,42 @@ class AdultEnvironment(Environment):
         return True
 
     def _change_workclass(self, arguments=None):
-        self.memory[1] = arguments
+        self.features["workclass"] = arguments
 
     def _change_education(self, arguments=None):
-        self.memory[3] = arguments
+        self.features["education"] = arguments
 
     def _change_occupation(self, arguments=None):
-        self.memory[6] = arguments
+        self.features["occupation"] = arguments
 
     def _change_relationship(self, arguments=None):
-        self.memory[7] = arguments
+        self.features["relationship"] = arguments
 
     def _change_hours(self, arguments=None):
-        self.memory[12] += arguments
+        self.features["hours_per_week"] += arguments
 
     ### ACTIONA PRECONDTIONS
 
     def _change_workclass_p(self, arguments=None):
-        return self.cost_per_argument["WORK"][arguments] >= self.cost_per_argument["WORK"][self.memory[1]]
+        return self.cost_per_argument["WORK"][arguments] >= self.cost_per_argument["WORK"][self.features.get("workclass")]
 
     def _change_education_p(self, arguments=None):
-        return self.arguments["EDU"].index(arguments) > self.arguments["EDU"].index(self.memory[3])
+        return self.arguments["EDU"].index(arguments) > self.arguments["EDU"].index(self.features.get("education"))
 
     def _change_occupation_p(self, arguments=None):
-        return self.cost_per_argument["OCC"][arguments] >= self.cost_per_argument["OCC"][self.memory[6]]
+        return self.cost_per_argument["OCC"][arguments] >= self.cost_per_argument["OCC"][self.features.get("occupation")]
 
     def _change_relationship_p(self, arguments=None):
 
         if arguments == "Wife":
-            return self.memory[7] != "Husband"
+            return self.features.get("relationship") != "Husband"
         elif arguments == "Husband":
-            return self.memory[7] != "Wife"
+            return self.features.get("relationship") != "Wife"
 
-        return self.cost_per_argument["REL"][arguments] >= self.cost_per_argument["REL"][self.memory[7]]
+        return self.cost_per_argument["REL"][arguments] >= self.cost_per_argument["REL"][self.features.get("relationship")]
 
     def _change_hours_p(self, arguments=None):
-        return self.memory[12] == arguments
+        return self.features.get("hours") == arguments
 
     ### COSTS
 
@@ -330,10 +306,10 @@ class AdultEnvironment(Environment):
     # Rescaling
 
     def _rescale_by_edu(self):
-        return 1/(len(self.arguments["EDU"])-self.arguments.get("EDU").index(self.memory[3]))
+        return 1/(len(self.arguments["EDU"])-self.arguments.get("EDU").index(self.features.get("education")))
 
     def _rescale_by_workclass(self):
-        return 1/(len(self.arguments["WORK"])-self.arguments.get("WORK").index(self.memory[1]))
+        return 1/(len(self.arguments["WORK"])-self.arguments.get("WORK").index(self.features.get("workclass")))
 
     ### POSTCONDITIONS
 
@@ -361,20 +337,13 @@ class AdultEnvironment(Environment):
         data.drop(columns=self.numerical_cols, inplace=True)
 
         # Get boolean version of the features
-        numeric_bools = self._get_boolean_conditions(self.memory)
+        numeric_bools = self._get_boolean_conditions(self.features)
         bools = torch.FloatTensor(np.concatenate((numeric_bools, data.values[0]), axis=0))
 
-        # Get classification
-        #with torch.no_grad():
-        #    tmp = self.transform_user()[0]
-        #    val_out = self.classifier(tmp)
-        #    classification = torch.round(val_out)
-
         return bools
-        #return torch.cat((bools, classification), 0)
 
     def get_state(self):
-        return list(self.memory)
+        return self.features.copy()
 
     def get_obs_dimension(self):
         return len(self.get_observation())
@@ -400,7 +369,6 @@ class AdultEnvironment(Environment):
 
     def get_additional_parameters(self):
         return {
-            "programs_types": self.programs_library,
             "types": self.arguments
         }
 

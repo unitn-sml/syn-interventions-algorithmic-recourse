@@ -6,6 +6,14 @@ general:
   tensorboard: true
   tensorboard_dir: "ignore/runs/adult"
 
+dataloader:
+  sample_errors: 0.1
+  configuration_parameters:
+    dataset: "data/adult_score/train.csv"
+    bad_class_value: "<=50K"
+    target_column: "income_target"
+    predicted_column: "predicted"
+
 # Specify training parameters
 training:
 
@@ -15,11 +23,11 @@ training:
   early_stopping_accuracy: 0.75
 
   mcts:
-    name: "generalized_alphanpi.mcts.mcts_multiple_args.MCTSMultipleArgs"
+    name: "rl_mcts.core.mcts.MCTS"
     configuration_parameters:
       exploration: true
       number_of_simulations: 10
-      dir_epsilon: 0.03
+      dir_epsilon: 0.3
       dir_noise: 0.35
       level_closeness_coeff: 1.0
       level_0_penalty: 1.0
@@ -33,7 +41,7 @@ training:
   trainer:
     batch_size: 50
 
-  curriculum_scheduler:
+  curriculum_statistics:
     next_action_accuracy: 0.97
     moving_average: 0.99
 
@@ -45,7 +53,6 @@ training:
 environment:
   name: "synthetizer.adult_score.environment.AdultEnvironment"
   configuration_parameters:
-    sample_from_errors_prob: 0.35
     classifier: "models/adult_classifier_09122021-153755.pth"
     encoder: "models/adult_classifier_encoder_09122021-153755.pth"
     scaler: "models/adult_classifier_scaling_09122021-153755.pth"
@@ -58,18 +65,37 @@ environment:
 
 # Policy used for this experiment
 policy:
-  name: "generalized_alphanpi.agents.multiple_args_policy.MultipleArgsPolicy"
+  name: "rl_mcts.core.agents.Policy"
   hidden_size: 50
-  embedding_dim: 100
   encoding_dim: 50 # This needs to be equal to the encoder embedding_dim
   #pretrained_model: "ignore/models/adult_experiment-2021_12_15-11_43_11.model"
 
 validation:
   dataset_name: "adult"
   iterations: 100
-  environment:
+
+  dataloader:
     configuration_parameters:
       dataset: "data/adult_score/test.csv"
-      sample_env: False
+      bad_class_value: "<=50K"
+      target_column: "income_target"
+      predicted_column: "predicted"
+  
+  mcts:
+    name: "rl_mcts.core.mcts.MCTS"
+    configuration_parameters:
+      exploration: false
+      number_of_simulations: 5
+      dir_epsilon: 0.3
+      dir_noise: 0.35
+      level_closeness_coeff: 1.0
+      level_0_penalty: 1.0
+      action_cost_coeff: 1.0
+      action_duplicate_cost: 1.0
+      qvalue_temperature: 1.0
+      temperature: 1.3
+      c_puct: 0.5
+      gamma: 0.8
+
   save_results: "ignore"
   save_results_name: "results"
