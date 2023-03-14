@@ -6,33 +6,16 @@ from collections import OrderedDict
 
 import numpy as np
 import pandas as pd
-import pickle
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from tqdm import tqdm
-
-class AdultEnvEncoder(nn.Module):
-    '''
-    Implement an encoder (f_enc) specific to the List environment. It encodes observations e_t into
-    vectors s_t of size D = encoding_dim.
-    '''
-
-    def __init__(self, observation_dim, encoding_dim=20):
-        super(AdultEnvEncoder, self).__init__()
-        self.l1 = nn.Linear(observation_dim, encoding_dim)
-        self.l2 = nn.Linear(encoding_dim, encoding_dim)
-
-    def forward(self, x):
-        x = F.relu(self.l1(x))
-        x = torch.tanh(self.l2(x))
-        return x
-
 class AdultEnvironment(Environment):
 
-    def __init__(self, f, w, classifier, encoder, scaler):
+    def __init__(self, f, model, preprocessor):
+
+        self.preprocessor = preprocessor
 
         self.prog_to_func = OrderedDict(sorted({'STOP': self._stop,
                                                 'CHANGE_WORKCLASS': self._change_workclass,
@@ -48,17 +31,17 @@ class AdultEnvironment(Environment):
                                                         'CHANGE_OCCUPATION': self._change_occupation_p,
                                                         'CHANGE_RELATIONSHIP': self._change_relationship_p,
                                                         'CHANGE_HOURS': self._change_hours_p,
-                                                        'INTERVENE': self._placeholder_stop}.items()))
+                                                        }.items()))
 
-        self.prog_to_postcondition = OrderedDict(sorted({'INTERVENE': self._intervene_postcondition}.items()))
+        self.prog_to_postcondition = self._intervene_postcondition
 
-        self.programs_library = OrderedDict(sorted({'STOP': {'level': -1, 'args': 'NONE'},
-                                                    'CHANGE_WORKCLASS': {'level': 0, 'args': 'WORK'},
-                                                    'CHANGE_EDUCATION': {'level': 0, 'args': 'EDU'},
-                                                    'CHANGE_OCCUPATION': {'level': 0, 'args': 'OCC'},
-                                                    'CHANGE_RELATIONSHIP': {'level': 0, 'args': 'REL'},
-                                                    'CHANGE_HOURS': {'level': 0, 'args': 'HOUR'},
-                                                    'INTERVENE': {'level': 1, 'args': 'NONE'}}.items()))
+        self.programs_library = OrderedDict(sorted({'STOP': {'index': 0, 'level': -1, 'args': 'NONE'},
+                                                    'CHANGE_WORKCLASS': {'index': 1, 'level': 0, 'args': 'WORK'},
+                                                    'CHANGE_EDUCATION': {'index': 2, 'level': 0, 'args': 'EDU'},
+                                                    'CHANGE_OCCUPATION': {'index': 3, 'level': 0, 'args': 'OCC'},
+                                                    'CHANGE_RELATIONSHIP': {'index': 4, 'level': 0, 'args': 'REL'},
+                                                    'CHANGE_HOURS': {'index': 5, 'level': 0, 'args': 'HOUR'},
+                                                    'INTERVENE': {'index': 6, 'level': 1, 'args': 'NONE'}}.items()))
 
         self.arguments = OrderedDict(sorted({
                                                 "WORK": ["Never-worked", "Without-pay", "Self-emp-not-inc", "Self-emp-inc","Private", "Local-gov", "State-gov", "Federal-gov", "?"],
@@ -100,46 +83,12 @@ class AdultEnvironment(Environment):
 
         }
 
-        self.categorical_cols = ["workclass", "education", "marital_status", "occupation", "relationship", "race", "sex", "native_country"]
-        self.numerical_cols = ["age", "fnlwgt", "education_num", "capital_gain", "capital_loss", "hours_per_week"]
-        self.boolean_cols = [
-                                  "age < 17",
-                                  "19 <= age < 33",
-                                  "33 <= age < 47",
-                                  "47 <= age < 61",
-                                  "61 <= age < 75",
-                                  "age >= 90",
-                                  "capital_gain == 0",
-                                  "0 < capital_gain < 25000",
-                                  "25000 <= capital_gain < 50000",
-                                  "50000 <= capital_gain < 75000",
-                                  "75000 <= capital_gain < 99999",
-                                  "capital_gain >= 99999",
-                                  "capital_loss == 0",
-                                  "0 <= capital_loss < 1089",
-                                  "1089 <= capital_loss < 2178",
-                                  "2178 <= capital_loss < 3267",
-                                  "3267 <= capital_loss < 4356",
-                                  "capital_loss >= 4356",
-                                  "0 <= hours_per_week < 25",
-                                  "25 <= hours_per_week < 50",
-                                  "50 <= hours_per_week < 75",
-                                  "75 <= hours_per_week < 100",
-                                  "hours_per_week >= 100"
-                              ]
-
-        # Set up the system with various informations
-        self.setup_system(self.boolean_cols, self.categorical_cols, encoder, scaler,
-                          classifier, Net, net_layers=5, net_size=108)
-
-        # Set up the max length of the interventions
-        self.max_depth_dict = {1: 5}
+        self.max_depth_dict = 5
 
         # Call parent constructor
-        super().__init__(f,w, self.prog_to_func, self.prog_to_precondition, self.prog_to_postcondition,
+        super().__init__(f, model, self.prog_to_func, self.prog_to_precondition, self.prog_to_postcondition,
                          self.programs_library, self.arguments, self.max_depth_dict,
-                         complete_arguments=self.complete_arguments, prog_to_cost=self.prog_to_cost,
-                         custom_tensorboard_metrics=self.custom_tensorboard_metrics)
+                         prog_to_cost=self.prog_to_cost)
 
     def get_state_str(self, state):
         with torch.no_grad():
@@ -149,90 +98,6 @@ class AdultEnvironment(Environment):
 
     def _placeholder_stop(self, args=None):
         return True
-
-    def parse_observation(self, data):
-        """
-        Parse an environment, by keeping the categorical values, but by removing
-        the numerical values in favour of booleans conversions
-        :param data:
-        :return:
-        """
-
-        booleans = self._get_boolean_conditions(data)
-
-        data = pd.DataFrame([data], columns=self.data.columns)
-        data.drop(columns=self.numerical_cols, inplace=True)
-
-        return booleans + data.values[0].tolist()
-
-    def _get_boolean_conditions(self, data):
-
-        return [
-            data.get("age") < 17,
-            19 <= data.get("age") < 33,
-            33 <= data.get("age") < 47,
-            47 <= data.get("age") < 61,
-            61 <= data.get("age") < 75,
-            data.get("age") >= 90,
-            data.get("capital_gain") == 0,
-            0 < data.get("capital_gain") < 25000,
-            25000 <= data.get("capital_gain") < 50000,
-            50000 <= data.get("capital_gain") < 75000,
-            75000 <= data.get("capital_gain") < 99999,
-            data.get("capital_gain") >= 99999,
-           data.get("capital_loss") == 0,
-            0 <=data.get("capital_loss") < 1089,
-            1089 <=data.get("capital_loss") < 2178,
-            2178 <=data.get("capital_loss") < 3267,
-            3267 <=data.get("capital_loss") < 4356,
-           data.get("capital_loss") >= 4356,
-            0 <= data.get("hours_per_week") < 25,
-            25 <= data.get("hours_per_week") < 50,
-            50 <= data.get("hours_per_week") < 75,
-            75 <= data.get("hours_per_week") < 100,
-            data.get("hours_per_week") >= 100
-        ]
-
-    def correct_numeric(self, df):
-        df[self.numerical_cols] = df[self.numerical_cols].apply(pd.to_numeric)
-        return df
-
-    def preprocess_single(self, data):
-
-        data.reset_index(drop=True, inplace=True)
-        data[self.numerical_cols] = self.data_scaler.transform(data[self.numerical_cols])
-        cat_ohe = self.data_encoder.transform(data[self.categorical_cols]).toarray()
-        ohe_df = pd.DataFrame(cat_ohe,
-                              columns=self.data_encoder.get_feature_names_out(input_features=self.categorical_cols))
-        data.reset_index(drop=True, inplace=True)
-        data = pd.concat([data, ohe_df], axis=1).drop(columns=self.categorical_cols, axis=1)
-
-        return torch.FloatTensor(data.values[0]), data
-
-    def transform_user(self):
-        data_df = pd.DataFrame.from_records([self.features])
-        return self.preprocess_single(data_df)
-
-    def init_env(self):
-
-        with torch.no_grad():
-            tmp = self.transform_user()[0]
-            val_out = self.classifier(tmp)
-
-        self.previous_classification = torch.round(val_out).item()
-
-    def reset_env(self, task_index):
-
-        task_name = self.get_program_from_index(task_index)
-
-        with torch.no_grad():
-            tmp = self.transform_user()[0]
-            val_out = self.classifier(tmp)
-
-        self.previous_classification = torch.round(val_out).item()
-        self.has_been_reset = True
-
-        return 0, 0
 
     def reset_to_state(self, state):
         self.features = state.copy()
@@ -314,63 +179,23 @@ class AdultEnvironment(Environment):
     ### POSTCONDITIONS
 
     def _intervene_postcondition(self, init_state, current_state):
-        self.custom_tensorboard_metrics["call_to_the_classifier"] += 1
-        with torch.no_grad():
-            tmp = self.transform_user()[0]
-            val_out = self.classifier(tmp)
-        return torch.round(val_out).item() != self.previous_classification
-
-    def get_observation_columns(self):
-
-        _, data = self.transform_user()
-
-        # Drop numeric columns
-        data.drop(columns=self.numerical_cols, inplace=True)
-
-        return self.boolean_cols + list(data.columns)
+        obs = self.preprocessor.transform(
+            pd.DataFrame.from_records(
+                [self.features]
+            )
+        )
+        return self.model.predict(obs)[0] == 0
 
     def get_observation(self):
 
-        _, data = self.transform_user()
-
-        # Drop numeric columns
-        data.drop(columns=self.numerical_cols, inplace=True)
-
-        # Get boolean version of the features
-        numeric_bools = self._get_boolean_conditions(self.features)
-        bools = torch.FloatTensor(np.concatenate((numeric_bools, data.values[0]), axis=0))
-
-        return bools
-
-    def get_state(self):
-        return self.features.copy()
-
-    def get_obs_dimension(self):
-        return len(self.get_observation())
-
-    def get_mask_over_args(self, program_index):
-        """
-        Return the available arguments which can be called by that given program
-        :param program_index: the program index
-        :return: a max over the available arguments
-        """
-
-        program = self.get_program_from_index(program_index)
-        permitted_arguments = self.programs_library[program]["args"]
-
-        mask = []
-        for k, r in self.arguments.items():
-            if k == permitted_arguments:
-                mask.append(np.ones(len(r)))
-            else:
-                mask.append(np.zeros(len(r)))
-
-        return np.concatenate(mask, axis=None)
+        obs = self.preprocessor.transform(
+            pd.DataFrame.from_records(
+                [self.features]
+            )
+        )
+        return torch.FloatTensor(obs)
 
     def get_additional_parameters(self):
         return {
             "types": self.arguments
         }
-
-    def compare_state(self, state_a, state_b):
-        return state_a == state_b
