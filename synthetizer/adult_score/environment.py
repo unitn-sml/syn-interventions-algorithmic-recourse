@@ -21,7 +21,7 @@ class AdultEnvironment(Environment):
                                                 'CHANGE_WORKCLASS': self._change_workclass,
                                                 'CHANGE_EDUCATION': self._change_education,
                                                 'CHANGE_OCCUPATION': self._change_occupation,
-                                                'CHANGE_RELATIONSHIP': self._change_relationship,
+                                                #'CHANGE_RELATIONSHIP': self._change_relationship,
                                                 'CHANGE_HOURS': self._change_hours
                                                 }.items()))
 
@@ -29,7 +29,7 @@ class AdultEnvironment(Environment):
                                                         'CHANGE_WORKCLASS': self._change_workclass_p,
                                                         'CHANGE_EDUCATION': self._change_education_p,
                                                         'CHANGE_OCCUPATION': self._change_occupation_p,
-                                                        'CHANGE_RELATIONSHIP': self._change_relationship_p,
+                                                        #'CHANGE_RELATIONSHIP': self._change_relationship_p,
                                                         'CHANGE_HOURS': self._change_hours_p,
                                                         }.items()))
 
@@ -39,15 +39,15 @@ class AdultEnvironment(Environment):
                                                     'CHANGE_WORKCLASS': {'index': 1, 'level': 0, 'args': 'WORK'},
                                                     'CHANGE_EDUCATION': {'index': 2, 'level': 0, 'args': 'EDU'},
                                                     'CHANGE_OCCUPATION': {'index': 3, 'level': 0, 'args': 'OCC'},
-                                                    'CHANGE_RELATIONSHIP': {'index': 4, 'level': 0, 'args': 'REL'},
-                                                    'CHANGE_HOURS': {'index': 5, 'level': 0, 'args': 'HOUR'},
-                                                    'INTERVENE': {'index': 6, 'level': 1, 'args': 'NONE'}}.items()))
+                                                    #'CHANGE_RELATIONSHIP': {'index': 4, 'level': 0, 'args': 'REL'},
+                                                    'CHANGE_HOURS': {'index': 4, 'level': 0, 'args': 'HOUR'},
+                                                    'INTERVENE': {'index': 5, 'level': 1, 'args': 'NONE'}}.items()))
 
         self.arguments = OrderedDict(sorted({
-                                                "WORK": ["Never-worked", "Without-pay", "Self-emp-not-inc", "Self-emp-inc","Private", "Local-gov", "State-gov", "Federal-gov", "?"],
+                                                "WORK": ["Never-worked", "Without-pay", "Self-emp-not-inc", "Self-emp-inc","Private", "Local-gov", "State-gov", "Federal-gov"],
                                                 "EDU": ['Preschool', '1st-4th', '5th-6th', '7th-8th', '9th', '10th', '11th', '12th', 'HS-grad', 'Some-college', 'Bachelors', 'Masters', 'Doctorate', 'Assoc-acdm', 'Assoc-voc', 'Prof-school'],
-                                                "OCC": ["Tech-support", "Craft-repair", "Other-service", "Sales", "Exec-managerial", "Prof-specialty", "Handlers-cleaners", "Machine-op-inspct", "Adm-clerical", "Farming-fishing", "Transport-moving", "Priv-house-serv", "Protective-serv", "Armed-Forces", "?"],
-                                                "REL": ["Wife", "Own-child", "Husband", "Not-in-family", "Other-relative", "Unmarried"],
+                                                "OCC": ["Tech-support", "Craft-repair", "Other-service", "Sales", "Exec-managerial", "Prof-specialty", "Handlers-cleaners", "Machine-op-inspct", "Adm-clerical", "Farming-fishing", "Transport-moving", "Priv-house-serv", "Protective-serv", "Armed-Forces"],
+                                                #"REL": ["Wife", "Own-child", "Husband", "Not-in-family", "Other-relative", "Unmarried"],
                                                 "HOUR": list(range(0,25)),
                                                 "NONE": [0]
                                             }.items()))
@@ -56,13 +56,13 @@ class AdultEnvironment(Environment):
                                                 'CHANGE_WORKCLASS': self._change_workclass_cost,
                                                 'CHANGE_EDUCATION': self._change_education_cost,
                                                 'CHANGE_OCCUPATION': self._change_occupation_cost,
-                                                'CHANGE_RELATIONSHIP': self._change_relationship_cost,
+                                                #'CHANGE_RELATIONSHIP': self._change_relationship_cost,
                                                 'CHANGE_HOURS': self._change_hours_cost
                                                 }.items()))
 
         self.cost_per_argument = {
             "WORK": {"Never-worked": 4, "Without-pay":5, "Self-emp-not-inc":6, "Self-emp-inc": 6,
-                     "Private":7, "Local-gov": 7, "State-gov":8, "Federal-gov":8, "?": 2},
+                     "Private":7, "Local-gov": 7, "State-gov":8, "Federal-gov":8},
             "OCC": {"Tech-support": 8,
                      "Craft-repair": 6,
                      "Other-service": 6,
@@ -76,14 +76,13 @@ class AdultEnvironment(Environment):
                      "Transport-moving":6,
                      "Priv-house-serv":6,
                      "Protective-serv":6,
-                     "Armed-Forces":6,
-                     "?": 5
+                     "Armed-Forces":6
                     },
             "REL": {"Wife": 5, "Own-child":6, "Husband":5, "Not-in-family":4, "Other-relative":4, "Unmarried":4}
 
         }
 
-        self.max_depth_dict = 5
+        self.max_depth_dict = 7
 
         # Call parent constructor
         super().__init__(f, model, self.prog_to_func, self.prog_to_precondition, self.prog_to_postcondition,
@@ -181,7 +180,7 @@ class AdultEnvironment(Environment):
     def _intervene_postcondition(self, init_state, current_state):
         obs = self.preprocessor.transform(
             pd.DataFrame.from_records(
-                [self.features]
+                [current_state]
             )
         )
         return self.model.predict(obs)[0] == 0
