@@ -1,6 +1,10 @@
 # Synthesizing explainable counterfactual policies for algorithmic recourse with program synthesis
 
-This repository contains the code to reproduce the experiments for the paper "Synthesizing explainable counterfactual policies for algorithmic recourse with program synthesis" (https://arxiv.org/pdf/2201.07135). 
+**Please have a look at [unitn-sml/recourse-fare](https://github.com/unitn-sml/recourse-fare) to replicate the following experiments. `recourse-fare` provides a better interface to reproduce the results and for reusing the EFARE and FARE methods.**
+
+**!!! The instructions below are deprecated and they are not guaranteed to work !!!**
+
+This repository contains the code to reproduce the experiments for the paper "Synthesizing explainable counterfactual policies for algorithmic recourse with program synthesis" (https://arxiv.org/pdf/2201.07135).
 
 
 ## 1 Set up the environment
@@ -25,13 +29,13 @@ We have now installed all the dependencies needed to run the project.
 In order to reproduce the results of our paper, you can exploit directly the trained models which come in this repository.
 You can find them in the directory `synthetize_interventions/models`. The script which generates the result csv files can be
 called in the following way. **This will take some time, since we also have to evaluate the CSCF model.** If you just want to reproduce the
-plots, see the instruction below. 
+plots, see the instruction below.
 ```shell script
 conda activate syn_inter
 cd synthesize_interventions
 python analytics/evaluate_all.py
 ```
-This will create a file `results.csv` which can be used to generate the Figure 5 of the paper. 
+This will create a file `results.csv` which can be used to generate the Figure 5 of the paper.
 Then, if we want to recreate the same graph, we can use the following script:
 ```shell script
 python analytics/plot.py results.csv
@@ -41,7 +45,7 @@ Alternatively, you can plot directly the results by using the pre-computed data:
 python analytics/plot.py analytics/evaluation/results.csv
 ```
 You can inspect the `evaluate_all.py` script to check which are the single commands needed to
-test each single model separately. The configuration file `analytics/config.yml` contains the path to the pre-trained models. 
+test each single model separately. The configuration file `analytics/config.yml` contains the path to the pre-trained models.
 
 ### 2.3 Reproduce query results
 
@@ -65,7 +69,7 @@ mpirun -n 4 python3 -m generalized_alphanpi.core.run --config synthetizer/german
 
 ### 2.5 Generate the programs
 You can also regenerate the deterministic program used for these experiments by exploiting our pre-trained models.
-You can find the command sequence below. **Bear in mind that this command will overwrite the pre-trained programs, which are located in `models/automa`.** 
+You can find the command sequence below. **Bear in mind that this command will overwrite the pre-trained programs, which are located in `models/automa`.**
 ```shell script
 cd synthesize_interventions
 python analytics/create_automa.py
